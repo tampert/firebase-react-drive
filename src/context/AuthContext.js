@@ -9,7 +9,7 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   function signup(email, password) {
     return auth.createUserWithEmailAndPassword(email, password);
@@ -18,6 +18,7 @@ export function AuthProvider({ children }) {
   function login(email, password) {
     return auth.signInWithEmailAndPassword(email, password);
   }
+
   function logout() {
     return auth.signOut();
   }
@@ -45,13 +46,14 @@ export function AuthProvider({ children }) {
 
   const value = {
     currentUser,
-    signup,
     login,
+    signup,
     logout,
     resetPassword,
     updateEmail,
     updatePassword,
   };
+
   return (
     <AuthContext.Provider value={value}>
       {!loading && children}
